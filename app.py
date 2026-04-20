@@ -3,12 +3,9 @@ import subprocess
 import sys
 
 def start_attendance():
-    root.destroy()  # GUI band
-
-    # ❗ run in background (no loop issue)
+    root.destroy()
     subprocess.Popen([sys.executable, "facedetection.py"])
 
-# Main window
 root = tk.Tk()
 root.title("Rahul's Face Attendance System")
 root.geometry("500x400")
