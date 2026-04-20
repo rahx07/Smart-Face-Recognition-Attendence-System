@@ -5,8 +5,7 @@ import os
 import pandas as pd
 from datetime import datetime
 
-# ========== LOAD IMAGES ==========
-path = 'images'   # ✅ FIXED (important)
+path = 'images'
 images = []
 classNames = []
 
@@ -18,7 +17,6 @@ for cl in myList:
         images.append(curImg)
         classNames.append(os.path.splitext(cl)[0].upper())
 
-# ========== ENCODING ==========
 def findEncodings(images):
     encodeList = []
     for img in images:
@@ -30,7 +28,6 @@ def findEncodings(images):
 
     return encodeList
 
-# ========== GET STUDENT DETAILS ==========
 def getStudentDetails(name):
     try:
         df = pd.read_csv('students.csv')
@@ -48,7 +45,6 @@ def getStudentDetails(name):
 
     return "NA", "NA", "NA"
 
-# ========== MARK ATTENDANCE ==========
 def markAttendance(name, uid, student_class, course, status):
     if name == "INVALID":
         return
@@ -75,7 +71,6 @@ def markAttendance(name, uid, student_class, course, status):
         dtString = now.strftime('%H:%M:%S')
         f.writelines(f'{name},{uid},{student_class},{course},{status},{dtString},{dateString}\n')
 
-# ========== MAIN ==========
 encodeListKnown = findEncodings(images)
 print("Encoding Complete")
 
@@ -111,15 +106,12 @@ while True:
             color = (0,0,255)
             status = "INVALID"
 
-        # SCALE BACK
         y1, x2, y2, x1 = faceLoc
         y1, x2, y2, x1 = y1*4, x2*4, y2*4, x1*4
 
-        # DRAW BOX
         cv2.rectangle(img,(x1,y1),(x2,y2),color,2)
         cv2.rectangle(img,(x1,y2-70),(x2,y2),color,cv2.FILLED)
 
-        # DISPLAY TEXT
         cv2.putText(img, name, (x1+6,y2-45),
                     cv2.FONT_HERSHEY_COMPLEX, 0.7, (255,255,255),2)
 
